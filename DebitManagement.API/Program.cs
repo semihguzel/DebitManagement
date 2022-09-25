@@ -1,9 +1,12 @@
+using System.Text;
 using System.Text.Json.Serialization;
-using DebitManagement.API.Extendions;
+using DebitManagement.API.Extensions;
 using DebitManagement.Data.Interfaces;
 using DebitManagement.Repository;
 using DebitManagement.Repository.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,20 +17,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("CoreSwagger", new OpenApiInfo()
-    {
-        Title = "Swagger on ASP.NET Core",
-        Version = "1.0.0",
-        Description = "Try Swagger on (ASP.NET Core 2.1)"
-    });
-});
+builder.Services.AddSwaggerServices();
 
 builder.Services.AddDbContext<DebitContext>(
     o => o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddJwtAuthentication(builder.Configuration.GetSection("AppSettings:JwtKey").Value);
 
 builder.Services.AddApplicationServices();
 
@@ -41,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

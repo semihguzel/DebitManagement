@@ -1,8 +1,7 @@
 using DebitManagement.Data.Interfaces;
 using DebitManagement.Repository.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
-namespace DebitManagement.API.Extendions;
+namespace DebitManagement.API.Extensions;
 
 public static class ApplicationServicesExtensions
 {

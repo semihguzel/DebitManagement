@@ -13,7 +13,11 @@ public class DebitContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfigurations());
+        modelBuilder.ApplyConfiguration(new ProductConfigurations());
+        modelBuilder.ApplyConfiguration(new ProductTypeConfigurations());
     }
 
     public DbSet<User?> Users { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductType> ProductTypes { get; set; }
 }

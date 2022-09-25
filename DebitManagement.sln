@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.API", "DebitManagement.API\DebitManagement.API.csproj", "{B90EB6CD-D964-4BC9-8410-BA9EBA020421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Core", "DebitManagement.Core\DebitManagement.Core.csproj", "{C01E7D68-FD87-4AFD-9E4F-E88E82CD06B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Infrastructure", "DebitManagement.Infrastructure\DebitManagement.Infrastructure.csproj", "{3386D190-8024-4943-ACAF-63945A70078A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Service", "DebitManagement.Service\DebitManagement.Service.csproj", "{EB8FD9DA-DD47-45D1-A856-96C1BF7006D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Base", "DebitManagement.Base\DebitManagement.Base.csproj", "{7E514716-9947-44B4-A623-A28E42B1EF27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B90EB6CD-D964-4BC9-8410-BA9EBA020421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90EB6CD-D964-4BC9-8410-BA9EBA020421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90EB6CD-D964-4BC9-8410-BA9EBA020421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90EB6CD-D964-4BC9-8410-BA9EBA020421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01E7D68-FD87-4AFD-9E4F-E88E82CD06B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01E7D68-FD87-4AFD-9E4F-E88E82CD06B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01E7D68-FD87-4AFD-9E4F-E88E82CD06B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01E7D68-FD87-4AFD-9E4F-E88E82CD06B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3386D190-8024-4943-ACAF-63945A70078A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3386D190-8024-4943-ACAF-63945A70078A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3386D190-8024-4943-ACAF-63945A70078A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3386D190-8024-4943-ACAF-63945A70078A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8FD9DA-DD47-45D1-A856-96C1BF7006D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8FD9DA-DD47-45D1-A856-96C1BF7006D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8FD9DA-DD47-45D1-A856-96C1BF7006D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8FD9DA-DD47-45D1-A856-96C1BF7006D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E514716-9947-44B4-A623-A28E42B1EF27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E514716-9947-44B4-A623-A28E42B1EF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E514716-9947-44B4-A623-A28E42B1EF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E514716-9947-44B4-A623-A28E42B1EF27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

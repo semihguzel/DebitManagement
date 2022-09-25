@@ -1,5 +1,9 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Reflection.Metadata;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DebitManagement.Base.Auth;
 
@@ -20,5 +24,33 @@ public static class AuthHelper
             throw new HttpException(HttpStatusCode.NotAcceptable, "Username has to be longer than 5 characters");
         if (password.Length < 5)
             throw new HttpException(HttpStatusCode.NotAcceptable, "Password has to be longer than 5 characters");
+    }
+
+    public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+        using var hmac = new HMACSHA512(passwordSalt);
+        var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        return computedHash.SequenceEqual(passwordHash);
+    }
+
+    public static string CreateJwtToken(string username, string password, string jwtKey)
+    {
+        List<Claim> claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, username)
+        };
+
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtKey));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddHours(1),
+            signingCredentials: creds
+        );
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        return jwt;
     }
 }

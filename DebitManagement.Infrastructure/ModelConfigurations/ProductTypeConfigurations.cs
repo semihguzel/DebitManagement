@@ -10,7 +10,7 @@ public class ProductTypeConfigurations : IEntityTypeConfiguration<ProductType>
     {
         builder.ToTable("ProductType");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.CreatedDate).HasColumnType("date");
+        builder.Property(x => x.CreatedDate).HasColumnType("timestamp");
         builder.Property(x => x.ProductTypeCode).IsRequired();
     }
 }

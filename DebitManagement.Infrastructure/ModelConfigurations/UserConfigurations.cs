@@ -10,6 +10,6 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Username).IsRequired();
-        builder.Property(x => x.CreatedDate).HasColumnType("date");
+        builder.Property(x => x.CreatedDate).HasColumnType("timestamp");
     }
 }

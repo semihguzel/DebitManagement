@@ -3,6 +3,7 @@ using System;
 using DebitManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DebitManagement.Repository.Migrations
 {
     [DbContext(typeof(DebitContext))]
-    partial class DebitContextModelSnapshot : ModelSnapshot
+    [Migration("20220928171552_UserRole")]
+    partial class UserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +32,7 @@ namespace DebitManagement.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("date");
 
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
@@ -60,7 +63,7 @@ namespace DebitManagement.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("date");
 
                     b.Property<string>("ProductTypeCode")
                         .IsRequired()
@@ -82,7 +85,7 @@ namespace DebitManagement.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("date");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -101,8 +104,6 @@ namespace DebitManagement.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserRoleId");
-
                     b.ToTable("Users");
                 });
 
@@ -113,7 +114,7 @@ namespace DebitManagement.Repository.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("date");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -135,25 +136,9 @@ namespace DebitManagement.Repository.Migrations
                     b.Navigation("ProductType");
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.User", b =>
-                {
-                    b.HasOne("DebitManagement.Data.Entities.UserRole", "UserRole")
-                        .WithMany("Users")
-                        .HasForeignKey("UserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserRole");
-                });
-
             modelBuilder.Entity("DebitManagement.Data.Entities.ProductType", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("DebitManagement.Data.Entities.UserRole", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

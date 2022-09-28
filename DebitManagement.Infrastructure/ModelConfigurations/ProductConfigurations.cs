@@ -12,7 +12,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ProductCode).IsRequired();
         builder.Property(x => x.ProductDescription).HasMaxLength(250);
-        builder.Property(x => x.CreatedDate).HasColumnType("date");
+        builder.Property(x => x.CreatedDate).HasColumnType("timestamp");
         builder.HasOne(x => x.ProductType).WithMany(x => x.Products).HasForeignKey(x => x.ProductTypeId);
     }
 }

@@ -1,5 +1,6 @@
 using DebitManagement.Data.Entities;
 using DebitManagement.Data.Interfaces;
+using DebitManagement.Repository.ModelConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace DebitManagement.Repository.Repositories;
@@ -16,6 +17,6 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
     public async Task<User?> GetByUsername(string username)
     {
-        return await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+        return await _context.Users.Include(x => x.UserRole).FirstOrDefaultAsync(x => x.Username == username);
     }
 }

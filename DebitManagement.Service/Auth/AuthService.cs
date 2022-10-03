@@ -1,6 +1,7 @@
 using System.Net;
 using DebitManagement.Base;
 using DebitManagement.Base.Auth;
+using DebitManagement.Data.Entities;
 using DebitManagement.Data.Interfaces;
 using Microsoft.Extensions.Configuration;
 
@@ -8,27 +9,30 @@ namespace DebitManagement.Service.Auth;
 
 public class AuthService
 {
-    private readonly IUserRepository _repository;
+    private readonly IUserRepository _userRepository;
+    private readonly IUserRoleRepository _userRoleRepository;
     private readonly IConfiguration _configuration;
 
-    public AuthService(IUserRepository repository, IConfiguration configuration)
+    public AuthService(IUserRepository userRepository, IUserRoleRepository userRoleRepository,
+        IConfiguration configuration)
     {
-        _repository = repository;
+        _userRepository = userRepository;
+        _userRoleRepository = userRoleRepository;
         _configuration = configuration;
     }
 
     public async Task CheckForRegister(string username)
     {
-        var user = await _repository.GetByUsername((username));
+        var user = await _userRepository.GetByUsername((username));
 
         if (user != null)
             throw new HttpException(HttpStatusCode.NotAcceptable,
                 "User already exists, please login with your credentials.");
     }
 
-    public async Task CheckForLogin(string username, string password)
+    public async Task<User> CheckForLogin(string username, string password)
     {
-        var user = await _repository.GetByUsername(username);
+        var user = await _userRepository.GetByUsername(username);
 
         if (user == null)
             throw new HttpException(HttpStatusCode.NotAcceptable,
@@ -38,5 +42,20 @@ public class AuthService
 
         if (!isAuthenticated)
             throw new HttpException(HttpStatusCode.BadRequest, "Password is not correct.");
+
+        return user;
+    }
+
+    public async Task<UserRole> GetRoleByName(string roleName)
+    {
+        var userRole = await _userRoleRepository.GetRoleByName("User");
+
+        if (userRole == null)
+        {
+            throw new HttpException(HttpStatusCode.InternalServerError,
+                "There has been an error . Please try again later");
+        }
+
+        return userRole;
     }
 }

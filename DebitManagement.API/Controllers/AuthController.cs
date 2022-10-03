@@ -14,15 +14,18 @@ namespace DebitManagement.API.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly IUserRepository _repository;
+    private readonly IUserRepository _userRepository;
+    private readonly IUserRoleRepository _userRoleRepository;
     private readonly IConfiguration _configuration;
     private readonly AuthService _authService;
 
-    public AuthController(IUserRepository repository, IConfiguration configuration)
+    public AuthController(IUserRepository userRepository, IUserRoleRepository userRoleRepository,
+        IConfiguration configuration)
     {
-        _repository = repository;
+        _userRepository = userRepository;
+        _userRoleRepository = userRoleRepository;
         _configuration = configuration;
-        _authService = new AuthService(_repository, _configuration);
+        _authService = new AuthService(_userRepository, userRoleRepository, _configuration);
     }
 
     [HttpPost("Register")]
@@ -35,10 +38,15 @@ public class AuthController : ControllerBase
 
             AuthHelper.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            var user = new User()
-                { Username = request.Username, PasswordHash = passwordHash, PasswordSalt = passwordSalt };
+            var userRole = await _authService.GetRoleByName("User");
 
-            await _repository.Create(user);
+            var user = new User()
+            {
+                Username = request.Username, PasswordHash = passwordHash, PasswordSalt = passwordSalt,
+                UserRoleId = userRole.Id
+            };
+
+            await _userRepository.Create(user);
         }
         catch (HttpException e)
         {
@@ -63,10 +71,10 @@ public class AuthController : ControllerBase
                 throw new HttpException(HttpStatusCode.InternalServerError, "");
 
             AuthHelper.ValidateRequest(request.Username, request.Password);
-            await _authService.CheckForLogin(request.Username, request.Password);
 
+            var user = await _authService.CheckForLogin(request.Username, request.Password);
 
-            token = AuthHelper.CreateJwtToken(request.Username, request.Password, jwtKey.Value);
+            token = AuthHelper.CreateJwtToken(user, jwtKey.Value);
         }
         catch (HttpException e)
         {

@@ -3,6 +3,7 @@ using System.Net;
 using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using DebitManagement.Data.Entities;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DebitManagement.Base.Auth;
@@ -33,11 +34,12 @@ public static class AuthHelper
         return computedHash.SequenceEqual(passwordHash);
     }
 
-    public static string CreateJwtToken(string username, string password, string jwtKey)
+    public static string CreateJwtToken(User user, string jwtKey)
     {
         List<Claim> claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, username)
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Role, user.UserRole.RoleName)
         };
 
         var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtKey));

@@ -17,7 +17,7 @@ public class DebitContext : DbContext
     }
 
     public DbSet<User?> Users { get; set; }
-    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<UserRole?> UserRoles { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductType> ProductTypes { get; set; }
 }

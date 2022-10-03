@@ -10,4 +10,8 @@
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DebitManagement.Core\DebitManagement.Core.csproj" />
+    </ItemGroup>
+
 </Project>

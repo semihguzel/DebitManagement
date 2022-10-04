@@ -43,8 +43,10 @@ public class AuthController : ControllerBase
             var user = new User()
             {
                 Username = request.Username, PasswordHash = passwordHash, PasswordSalt = passwordSalt,
-                UserRoleId = userRole.Id
+                UserRoles = new List<UserRole>()
             };
+
+            user.UserRoles.Add(userRole);
 
             await _userRepository.Create(user);
         }
@@ -87,5 +89,11 @@ public class AuthController : ControllerBase
 
         return StatusCode((int)HttpStatusCode.OK,
             new ResponseBody() { Message = "Logged in successfully.", Token = token });
+    }
+
+    [HttpGet("Temp"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult> Temp()
+    {
+        return Ok();
     }
 }

@@ -17,6 +17,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
     public async Task<User?> GetByUsername(string username)
     {
-        return await _context.Users.Include(x => x.UserRole).FirstOrDefaultAsync(x => x.Username == username);
+        return await _context.Users.Include(x => x.UserRoles)
+            .FirstOrDefaultAsync(x => x.Username == username);
     }
 }

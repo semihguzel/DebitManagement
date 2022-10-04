@@ -12,7 +12,5 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.CreatedDate).HasColumnType("timestamp");
         builder.Property(x => x.RoleName).IsRequired();
-
-        builder.HasMany(x => x.Users).WithOne(x => x.UserRole).HasForeignKey(x => x.UserRoleId);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using DebitManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DebitManagement.Repository.Migrations
 {
     [DbContext(typeof(DebitContext))]
-    partial class DebitContextModelSnapshot : ModelSnapshot
+    [Migration("20221004184355_UserRoles-Relation")]
+    partial class UserRolesRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,6 +122,27 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("UserRole", (string)null);
                 });
 
+            modelBuilder.Entity("DebitManagement.Data.Entities.UserUserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserRoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId", "UserRoleId");
+
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("UserUserRoles");
+                });
+
             modelBuilder.Entity("UserUserRole", b =>
                 {
                     b.Property<Guid>("UserRolesId")
@@ -143,6 +167,25 @@ namespace DebitManagement.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("DebitManagement.Data.Entities.UserUserRole", b =>
+                {
+                    b.HasOne("DebitManagement.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DebitManagement.Data.Entities.UserRole", "UserRole")
+                        .WithMany()
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("UserUserRole", b =>

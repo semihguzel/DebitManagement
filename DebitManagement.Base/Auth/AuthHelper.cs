@@ -36,11 +36,15 @@ public static class AuthHelper
 
     public static string CreateJwtToken(User user, string jwtKey)
     {
-        List<Claim> claims = new List<Claim>()
+        List<Claim> claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Role, user.UserRole.RoleName)
+            new(ClaimTypes.Name, user.Username)
         };
+
+        foreach (var userRole in user.UserRoles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, userRole.RoleName));
+        }
 
         var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

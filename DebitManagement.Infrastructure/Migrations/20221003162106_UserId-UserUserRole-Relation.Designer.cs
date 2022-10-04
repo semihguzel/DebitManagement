@@ -3,6 +3,7 @@ using System;
 using DebitManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DebitManagement.Repository.Migrations
 {
     [DbContext(typeof(DebitContext))]
-    partial class DebitContextModelSnapshot : ModelSnapshot
+    [Migration("20221003162106_UserId-UserUserRole-Relation")]
+    partial class UserIdUserUserRoleRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,19 +122,25 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("UserRole", (string)null);
                 });
 
-            modelBuilder.Entity("UserUserRole", b =>
+            modelBuilder.Entity("DebitManagement.Data.Entities.UserUserRole", b =>
                 {
-                    b.Property<Guid>("UserRolesId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UsersId")
+                    b.Property<Guid>("UserRoleId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("UserRolesId", "UsersId");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp");
 
-                    b.HasIndex("UsersId");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    b.ToTable("UserUserRole");
+                    b.HasKey("UserId", "UserRoleId");
+
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("UserUserRoles");
                 });
 
             modelBuilder.Entity("DebitManagement.Data.Entities.Product", b =>
@@ -145,24 +154,38 @@ namespace DebitManagement.Repository.Migrations
                     b.Navigation("ProductType");
                 });
 
-            modelBuilder.Entity("UserUserRole", b =>
+            modelBuilder.Entity("DebitManagement.Data.Entities.UserUserRole", b =>
                 {
-                    b.HasOne("DebitManagement.Data.Entities.UserRole", null)
-                        .WithMany()
-                        .HasForeignKey("UserRolesId")
+                    b.HasOne("DebitManagement.Data.Entities.User", "User")
+                        .WithMany("UserUserRoles")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DebitManagement.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
+                    b.HasOne("DebitManagement.Data.Entities.UserRole", "UserRole")
+                        .WithMany("UserUserRoles")
+                        .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("DebitManagement.Data.Entities.ProductType", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DebitManagement.Data.Entities.User", b =>
+                {
+                    b.Navigation("UserUserRoles");
+                });
+
+            modelBuilder.Entity("DebitManagement.Data.Entities.UserRole", b =>
+                {
+                    b.Navigation("UserUserRoles");
                 });
 #pragma warning restore 612, 618
         }

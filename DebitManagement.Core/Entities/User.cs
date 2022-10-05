@@ -6,4 +6,5 @@ public class User : BaseEntity
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
     public ICollection<UserRole> UserRoles { get; set; }
+    public ICollection<Debit> Debits { get; set; }
 }

@@ -8,4 +8,5 @@ public class Product : BaseEntity
     public Guid ProductTypeId { get; set; }
 
     public ProductType ProductType { get; set; }
+    public ICollection<Debit> Debits { get; set; }
 }

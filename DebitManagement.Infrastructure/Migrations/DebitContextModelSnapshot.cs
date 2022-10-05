@@ -22,6 +22,43 @@ namespace DebitManagement.Repository.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DebitManagement.Data.Entities.Debit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ActionDescription")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Debit", (string)null);
+                });
+
             modelBuilder.Entity("DebitManagement.Data.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,6 +171,25 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("UserUserRole");
                 });
 
+            modelBuilder.Entity("DebitManagement.Data.Entities.Debit", b =>
+                {
+                    b.HasOne("DebitManagement.Data.Entities.Product", "Product")
+                        .WithMany("Debits")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DebitManagement.Data.Entities.User", "User")
+                        .WithMany("Debits")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DebitManagement.Data.Entities.Product", b =>
                 {
                     b.HasOne("DebitManagement.Data.Entities.ProductType", "ProductType")
@@ -160,9 +216,19 @@ namespace DebitManagement.Repository.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DebitManagement.Data.Entities.Product", b =>
+                {
+                    b.Navigation("Debits");
+                });
+
             modelBuilder.Entity("DebitManagement.Data.Entities.ProductType", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DebitManagement.Data.Entities.User", b =>
+                {
+                    b.Navigation("Debits");
                 });
 #pragma warning restore 612, 618
         }

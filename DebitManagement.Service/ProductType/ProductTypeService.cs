@@ -23,32 +23,32 @@ public class ProductTypeService
 
     public async Task CheckIfAlreadyExists(string productTypeCode)
     {
-        var roleType = await _productTypeRepository.GetByCode(productTypeCode);
+        var productType = await _productTypeRepository.GetByCode(productTypeCode);
 
-        if (roleType != null)
-            throw new HttpException(HttpStatusCode.NotAcceptable, "Role type already exists, please sent check data");
+        if (productType != null)
+            throw new HttpException(HttpStatusCode.NotAcceptable, "Role type already exists, please check sent data");
     }
 
     public async Task<Core.Entities.ProductType> CheckAndReturn(string productTypeCode)
     {
-        var roleType = await _productTypeRepository.GetByCode(productTypeCode);
+        var productType = await _productTypeRepository.GetByCode(productTypeCode);
 
-        if (roleType == null)
+        if (productType == null)
             throw new HttpException(HttpStatusCode.NotAcceptable,
                 "Role type couldn't be found, please sent check data");
 
-        return roleType;
+        return productType;
     }
     
     public async Task<Core.Entities.ProductType> CheckByIdAndReturn(Guid id)
     {
-        var roleType = await _productTypeRepository.GetByIdAsync(id);
+        var productType = await _productTypeRepository.GetByIdAsync(id);
 
-        if (roleType == null)
+        if (productType == null)
             throw new HttpException(HttpStatusCode.NotAcceptable,
                 "Role type couldn't be found, please sent check data");
 
-        return roleType;
+        return productType;
     }
 
     public async Task Insert(ProductTypeDto productTypeDto)

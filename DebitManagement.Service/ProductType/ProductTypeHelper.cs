@@ -10,7 +10,7 @@ public static class ProductTypeHelper
     {
         if (string.IsNullOrEmpty(productTypeDto.ProductTypeCode) || string.IsNullOrEmpty(productTypeDto.ProductTypeDescription))
             throw new HttpException(HttpStatusCode.NotAcceptable,
-                "RoleTypeCode cannot be empty. Please check sent data.");
+                "There are problems with sent data. Please check it and try again.");
     }
 
     public static Core.Entities.ProductType UpdateModel(Core.Entities.ProductType productType,

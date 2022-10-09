@@ -1,20 +1,13 @@
-using System.Text;
 using System.Text.Json.Serialization;
 using DebitManagement.API.Extensions;
-using DebitManagement.Core.Interfaces;
 using DebitManagement.Repository;
-using DebitManagement.Repository.Repositories;
-using DebitManagement.Service.ProductType.Mappings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 builder.Services.AddEndpointsApiExplorer();
 

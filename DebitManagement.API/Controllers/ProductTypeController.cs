@@ -12,20 +12,18 @@ namespace DebitManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductController : ControllerBase
+public class ProductTypeController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
-    private readonly IProductRepository _productRepository;
     private readonly IProductTypeRepository _productTypeRepository;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
     private readonly ProductTypeService _productTypeService;
 
-    public ProductController(IUserRepository userRepository, IProductRepository productRepository,
+    public ProductTypeController(IUserRepository userRepository, IProductRepository productRepository,
         IProductTypeRepository productTypeRepository, IConfiguration configuration, IMapper mapper)
     {
         _userRepository = userRepository;
-        _productRepository = productRepository;
         _productTypeRepository = productTypeRepository;
         _configuration = configuration;
         _mapper = mapper;

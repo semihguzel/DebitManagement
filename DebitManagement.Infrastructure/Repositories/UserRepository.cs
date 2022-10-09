@@ -1,5 +1,5 @@
-using DebitManagement.Data.Entities;
-using DebitManagement.Data.Interfaces;
+using DebitManagement.Core.Entities;
+using DebitManagement.Core.Interfaces;
 using DebitManagement.Repository.ModelConfigurations;
 using Microsoft.EntityFrameworkCore;
 

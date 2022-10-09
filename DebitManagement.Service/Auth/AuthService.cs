@@ -1,8 +1,8 @@
 using System.Net;
 using DebitManagement.Base;
-using DebitManagement.Base.Auth;
-using DebitManagement.Data.Entities;
-using DebitManagement.Data.Interfaces;
+using DebitManagement.Core.Entities;
+using DebitManagement.Core.Interfaces;
+using DebitManagement.Service.Helpers;
 using Microsoft.Extensions.Configuration;
 
 namespace DebitManagement.Service.Auth;

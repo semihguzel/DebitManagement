@@ -1,5 +1,5 @@
-using DebitManagement.Data.Entities;
-using DebitManagement.Data.Interfaces;
+using DebitManagement.Core.Entities;
+using DebitManagement.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DebitManagement.Repository.Repositories;
@@ -29,7 +29,7 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
         await _context.SaveChangesAsync();
     }
 
-    public async Task Update(Guid id, T entity)
+    public async Task Update(T entity)
     {
         _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync();

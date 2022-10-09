@@ -1,10 +1,10 @@
 using System.Net;
 using DebitManagement.API.Dto;
 using DebitManagement.Base;
-using DebitManagement.Base.Auth;
-using DebitManagement.Data.Entities;
-using DebitManagement.Data.Interfaces;
+using DebitManagement.Core.Entities;
+using DebitManagement.Core.Interfaces;
 using DebitManagement.Service.Auth;
+using DebitManagement.Service.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -89,11 +89,5 @@ public class AuthController : ControllerBase
 
         return StatusCode((int)HttpStatusCode.OK,
             new ResponseBody() { Message = "Logged in successfully.", Token = token });
-    }
-
-    [HttpGet("Temp"), Authorize(Roles = "Admin")]
-    public async Task<ActionResult> Temp()
-    {
-        return Ok();
     }
 }

@@ -1,6 +1,6 @@
-using DebitManagement.Data.Entities;
+using DebitManagement.Core.Entities;
 
-namespace DebitManagement.Data.Interfaces;
+namespace DebitManagement.Core.Interfaces;
 
 public interface IUserRepository : IRepository<User>
 {

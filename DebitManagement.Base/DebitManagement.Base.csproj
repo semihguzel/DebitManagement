@@ -14,4 +14,8 @@
       <ProjectReference Include="..\DebitManagement.Core\DebitManagement.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Auth" />
+    </ItemGroup>
+
 </Project>

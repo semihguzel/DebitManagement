@@ -1,9 +1,10 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using DebitManagement.API.Extensions;
-using DebitManagement.Data.Interfaces;
+using DebitManagement.Core.Interfaces;
 using DebitManagement.Repository;
 using DebitManagement.Repository.Repositories;
+using DebitManagement.Service.ProductType.Mappings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,12 +23,11 @@ builder.Services.AddSwaggerServices();
 builder.Services.AddDbContext<DebitContext>(
     o => o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-
 builder.Services.AddJwtAuthentication(builder.Configuration.GetSection("AppSettings:JwtKey").Value);
 
 builder.Services.AddApplicationServices();
+
+builder.Services.AddMapperProfiles();
 
 var app = builder.Build();
 

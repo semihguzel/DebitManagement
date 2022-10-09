@@ -1,12 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using DebitManagement.Data.Entities;
+using DebitManagement.Base;
+using DebitManagement.Core.Entities;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DebitManagement.Base.Auth;
+namespace DebitManagement.Service.Helpers;
 
 public static class AuthHelper
 {

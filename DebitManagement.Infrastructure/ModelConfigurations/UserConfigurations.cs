@@ -1,4 +1,4 @@
-using DebitManagement.Data.Entities;
+using DebitManagement.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

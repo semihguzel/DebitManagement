@@ -1,4 +1,4 @@
-namespace DebitManagement.Data.Entities;
+namespace DebitManagement.Core.Entities;
 
 public class Product : BaseEntity
 {

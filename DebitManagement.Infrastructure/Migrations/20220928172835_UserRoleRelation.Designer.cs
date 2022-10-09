@@ -25,7 +25,7 @@ namespace DebitManagement.Repository.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.Product", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("Product", (string)null);
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.ProductType", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.ProductType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +78,7 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("ProductType", (string)null);
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.User", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.UserRole", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.UserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -127,9 +127,9 @@ namespace DebitManagement.Repository.Migrations
                     b.ToTable("UserRole", (string)null);
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.Product", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.Product", b =>
                 {
-                    b.HasOne("DebitManagement.Data.Entities.ProductType", "ProductType")
+                    b.HasOne("DebitManagement.Core.Entities.ProductType", "ProductType")
                         .WithMany("Products")
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -138,9 +138,9 @@ namespace DebitManagement.Repository.Migrations
                     b.Navigation("ProductType");
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.User", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.User", b =>
                 {
-                    b.HasOne("DebitManagement.Data.Entities.UserRole", "UserRole")
+                    b.HasOne("DebitManagement.Core.Entities.UserRole", "UserRole")
                         .WithMany("Users")
                         .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -149,12 +149,12 @@ namespace DebitManagement.Repository.Migrations
                     b.Navigation("UserRole");
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.ProductType", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.ProductType", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.UserRole", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.UserRole", b =>
                 {
                     b.Navigation("Users");
                 });

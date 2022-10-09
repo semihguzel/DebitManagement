@@ -25,7 +25,7 @@ namespace DebitManagement.Repository.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DebitManagement.Data.Entities.User", b =>
+            modelBuilder.Entity("DebitManagement.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

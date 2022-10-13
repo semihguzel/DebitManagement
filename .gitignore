@@ -10,3 +10,4 @@ riderModule.iml
 /.idea/.idea.DebitManagement/.idea/indexLayout.xml
 /.idea/.idea.DebitManagement/.idea/vcs.xml
 *.user
+dataSources.xml

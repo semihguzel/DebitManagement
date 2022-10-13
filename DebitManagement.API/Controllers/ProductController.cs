@@ -40,7 +40,7 @@ public class ProductController : ControllerBase
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<Product> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {
@@ -48,27 +48,73 @@ public class ProductController : ControllerBase
         }
 
         return StatusCode((int)HttpStatusCode.OK,
-            new ResponseBody { Items = products.ToList<object>(), Count = products.Count });
+            new ResponseBody<Product> { Items = products.ToList<object>(), Count = products.Count });
     }
 
     [HttpPost, Authorize(Roles = "Admin")]
     public async Task<ActionResult> CreateProduct(ProductDto productDto)
     {
+        Product createdProduct = null;
         try
         {
             ProductHelper.CheckSentData(productDto);
             await _productService.CheckIfAlreadyExists(productDto.ProductCode);
-            await _productService.Insert(productDto);
+            createdProduct = await _productService.Insert(productDto);
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<Product> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError);
         }
-        
-        return StatusCode((int)HttpStatusCode.OK, "Successfully created.");
+
+        return StatusCode((int)HttpStatusCode.OK, new ResponseBody<Product> { Item = createdProduct });
+    }
+
+    [HttpPost("Delete"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult> DeleteProduct(string productCode)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(productCode))
+                throw new HttpException(HttpStatusCode.NotAcceptable,
+                    "Product code cannot be empty. Please check sent data.");
+
+            var product = await _productService.CheckByCodeAndReturn(productCode);
+            await _productRepository.Delete(product.Id);
+        }
+        catch (HttpException e)
+        {
+            return StatusCode((int)e.StatusCode, new ResponseBody<Product> { Message = e.ErrorMessage });
+        }
+        catch (Exception e)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError);
+        }
+
+        return StatusCode((int)HttpStatusCode.OK, "Successfully deleted.");
+    }
+
+    [HttpPost("Update"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult> UpdateProduct(Guid id, ProductDto productDto)
+    {
+        try
+        {
+            var product = await _productService.CheckByIdAndReturn(id);
+            var updatedProduct = ProductHelper.UpdateModel(product, productDto);
+            await _productRepository.Update(updatedProduct);
+        }
+        catch (HttpException e)
+        {
+            return StatusCode((int)e.StatusCode, new ResponseBody<Product> { Message = e.ErrorMessage });
+        }
+        catch (Exception e)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError);
+        }
+
+        return StatusCode((int)HttpStatusCode.OK, "Successfully updated.");
     }
 }

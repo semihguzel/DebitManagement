@@ -52,14 +52,14 @@ public class AuthController : ControllerBase
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<User> { Message = e.ErrorMessage });
         }
         catch (Exception ex)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError);
         }
 
-        return StatusCode((int)HttpStatusCode.Created, new ResponseBody() { Message = "Register completed." });
+        return StatusCode((int)HttpStatusCode.Created, new ResponseBody<User>() { Message = "Register completed." });
     }
 
     [HttpPost("Login")]
@@ -80,7 +80,7 @@ public class AuthController : ControllerBase
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<User> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {
@@ -88,6 +88,6 @@ public class AuthController : ControllerBase
         }
 
         return StatusCode((int)HttpStatusCode.OK,
-            new ResponseBody() { Message = "Logged in successfully.", Token = token });
+            new ResponseBody<User>() { Message = "Logged in successfully.", Token = token });
     }
 }

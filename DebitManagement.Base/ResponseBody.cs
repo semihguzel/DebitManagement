@@ -1,8 +1,9 @@
 using System.ComponentModel;
+using DebitManagement.Core.Entities;
 
 namespace DebitManagement.Base;
 
-public class ResponseBody
+public class ResponseBody<T> where T : class
 {
     [DisplayName("message")] public string Message { get; set; }
 
@@ -10,4 +11,6 @@ public class ResponseBody
 
     [DisplayName("items")] public List<object> Items { get; set; }
     [DisplayName("token")] public string Token { get; set; }
+
+    [DisplayName("item")] public T Item { get; set; }
 }

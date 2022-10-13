@@ -40,7 +40,7 @@ public class ProductTypeController : ControllerBase
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<ProductType> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {
@@ -48,7 +48,7 @@ public class ProductTypeController : ControllerBase
         }
 
         return StatusCode((int)HttpStatusCode.OK,
-            new ResponseBody { Items = list.ToList<object>(), Count = list.Count });
+            new ResponseBody<ProductType> { Items = list.ToList<object>(), Count = list.Count });
     }
 
     [HttpPost("Create"), Authorize(Roles = "Admin")]
@@ -62,7 +62,7 @@ public class ProductTypeController : ControllerBase
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<Product> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {
@@ -81,12 +81,12 @@ public class ProductTypeController : ControllerBase
                 throw new HttpException(HttpStatusCode.NotAcceptable,
                     "Product type code cannot be empty. Please check sent data.");
 
-            var roleType = await _productTypeService.CheckAndReturn(productTypeCode);
-            await _productTypeRepository.Delete(roleType.Id);
+            var productType = await _productTypeService.CheckAndReturn(productTypeCode);
+            await _productTypeRepository.Delete(productType.Id);
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<ProductType> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {
@@ -108,7 +108,7 @@ public class ProductTypeController : ControllerBase
         }
         catch (HttpException e)
         {
-            return StatusCode((int)e.StatusCode, new ResponseBody { Message = e.ErrorMessage });
+            return StatusCode((int)e.StatusCode, new ResponseBody<ProductType> { Message = e.ErrorMessage });
         }
         catch (Exception e)
         {

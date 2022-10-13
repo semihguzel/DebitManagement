@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Service", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Base", "DebitManagement.Base\DebitManagement.Base.csproj", "{7E514716-9947-44B4-A623-A28E42B1EF27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitManagement.Tests", "DebitManagement.Tests\DebitManagement.Tests.csproj", "{D5A494D8-073F-4ACB-8556-41DA5BF85941}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{7E514716-9947-44B4-A623-A28E42B1EF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E514716-9947-44B4-A623-A28E42B1EF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E514716-9947-44B4-A623-A28E42B1EF27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A494D8-073F-4ACB-8556-41DA5BF85941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A494D8-073F-4ACB-8556-41DA5BF85941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A494D8-073F-4ACB-8556-41DA5BF85941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A494D8-073F-4ACB-8556-41DA5BF85941}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

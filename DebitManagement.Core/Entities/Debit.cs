@@ -10,4 +10,5 @@ public class Debit : BaseEntity
 
     public Product Product { get; set; }
     public User User { get; set; }
+    public ICollection<DebitActionHistory> DebitActionHistories { get; set; }
 }

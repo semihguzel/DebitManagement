@@ -3,6 +3,7 @@ using System;
 using DebitManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DebitManagement.Repository.Migrations
 {
     [DbContext(typeof(DebitContext))]
-    partial class DebitContextModelSnapshot : ModelSnapshot
+    [Migration("20221019174426_DebitUpdate")]
+    partial class DebitUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,6 +80,11 @@ namespace DebitManagement.Repository.Migrations
 
                     b.Property<Guid>("DebitId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 

@@ -70,7 +70,7 @@ public class ProductController : ControllerBase
             return StatusCode((int)HttpStatusCode.InternalServerError);
         }
 
-        return StatusCode((int)HttpStatusCode.OK, new ResponseBody<Product> { Item = createdProduct });
+        return StatusCode((int)HttpStatusCode.Created, new ResponseBody<Product> { Item = createdProduct });
     }
 
     [HttpPost("Delete"), Authorize(Roles = "Admin")]

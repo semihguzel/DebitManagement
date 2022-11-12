@@ -13,7 +13,6 @@ public class DebitConfigurations : IEntityTypeConfiguration<Debit>
         builder.Property(x => x.CreatedDate).HasColumnType("timestamp");
         builder.Property(x => x.ReturnDate).HasColumnType("timestamp");
         builder.Property(x => x.Status).HasMaxLength(50);
-        builder.Property(x => x.ActionDescription).HasMaxLength(200);
 
         builder.HasOne(x => x.User).WithMany(x => x.Debits).HasForeignKey(x => x.UserId);
         builder.HasOne(x => x.Product).WithMany(x => x.Debits).HasForeignKey(x => x.ProductId);

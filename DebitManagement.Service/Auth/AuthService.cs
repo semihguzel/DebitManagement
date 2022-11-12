@@ -30,7 +30,7 @@ public class AuthService
                 "User already exists, please login with your credentials.");
     }
 
-    public async Task<User> CheckForLogin(string username, string password)
+    public async Task<Core.Entities.User> CheckForLogin(string username, string password)
     {
         var user = await _userRepository.GetByUsername(username);
 

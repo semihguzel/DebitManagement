@@ -34,7 +34,7 @@ public static class AuthHelper
         return computedHash.SequenceEqual(passwordHash);
     }
 
-    public static string CreateJwtToken(User user, string jwtKey)
+    public static string CreateJwtToken(Core.Entities.User user, string jwtKey)
     {
         List<Claim> claims = new List<Claim>
         {

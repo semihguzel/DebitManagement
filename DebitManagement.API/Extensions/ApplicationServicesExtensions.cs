@@ -12,6 +12,9 @@ public static class ApplicationServicesExtensions
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
+        services.AddScoped<IDebitRepository, DebitRepository>();
+        services.AddScoped<IDebitActionHistoryRepository, DebitActionHistoryRepository>();
+        
 
         return services;
     }

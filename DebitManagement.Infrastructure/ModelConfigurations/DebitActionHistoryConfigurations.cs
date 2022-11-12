@@ -11,7 +11,6 @@ public class DebitActionHistoryConfigurations : IEntityTypeConfiguration<DebitAc
         builder.ToTable("DebitActionHistory");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.CreatedDate).HasColumnType("timestamp");
-        builder.Property(x => x.Status).HasMaxLength(50).IsRequired();
         builder.Property(x => x.Action).HasMaxLength(100).IsRequired();
 
         builder.HasOne(x => x.Debit).WithMany(x => x.DebitActionHistories).HasForeignKey(x => x.DebitId);

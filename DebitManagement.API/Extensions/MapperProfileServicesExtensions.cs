@@ -1,3 +1,4 @@
+using DebitManagement.Service.Debit.Mappings;
 using DebitManagement.Service.Product.Mappings;
 using DebitManagement.Service.ProductType.Mappings;
 
@@ -9,6 +10,7 @@ public static class MapperProfileServicesExtensions
     {
         services.AddAutoMapper(typeof(ProductTypeProfiles));
         services.AddAutoMapper(typeof(ProductProfiles));
+        services.AddAutoMapper(typeof(DebitProfiles));
 
         return services;
     }

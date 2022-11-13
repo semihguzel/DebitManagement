@@ -22,8 +22,18 @@ builder.Services.AddApplicationServices();
 
 builder.Services.AddMapperProfiles();
 
+builder.Services.AddCors(o => o.AddPolicy("Policy",
+    b =>
+    {
+        b.WithOrigins(builder.Configuration.GetSection("ClientSettings:Url").Value).AllowAnyMethod().AllowAnyHeader();
+    }
+));
+
+builder.Services.AddMvc();
+
 var app = builder.Build();
 
+app.UseCors("Policy");
 
 if (app.Environment.IsDevelopment())
 {

@@ -61,6 +61,41 @@ public class AuthController : ControllerBase
 
         return StatusCode((int)HttpStatusCode.Created, new ResponseBody<User>() { Message = "Register completed." });
     }
+    
+    [HttpPost("RegisterAdmin")]
+    [Authorize(Roles = "Manager")]
+    public async Task<ActionResult> RegisterAdmin([FromBody] UserDto request)
+    {
+        try
+        {
+            AuthHelper.ValidateRequest(request.Username, request.Password);
+            await _authService.CheckForRegister(request.Username);
+
+            AuthHelper.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+            var userRole = await _authService.GetRoleByName("Admin");
+
+            var user = new User()
+            {
+                Username = request.Username, PasswordHash = passwordHash, PasswordSalt = passwordSalt,
+                UserRoles = new List<UserRole>()
+            };
+
+            user.UserRoles.Add(userRole);
+
+            await _userRepository.Create(user);
+        }
+        catch (HttpException e)
+        {
+            return StatusCode((int)e.StatusCode, new ResponseBody<User> { Message = e.ErrorMessage });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError);
+        }
+
+        return StatusCode((int)HttpStatusCode.Created, new ResponseBody<User>() { Message = "Register completed." });
+    }
 
     [HttpPost("Login")]
     public async Task<ActionResult> Login([FromBody] UserDto request)

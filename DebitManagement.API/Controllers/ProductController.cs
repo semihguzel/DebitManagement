@@ -30,7 +30,7 @@ public class ProductController : ControllerBase
         _productService = new ProductService(productRepository, productTypeRepository, mapper);
     }
 
-    [HttpGet]
+    [HttpGet("GetProducts")]
     public async Task<ActionResult> GetProducts()
     {
         IReadOnlyList<Product> products;
@@ -51,7 +51,7 @@ public class ProductController : ControllerBase
             new ResponseBody<Product> { Items = products.ToList<object>(), Count = products.Count });
     }
 
-    [HttpPost, Authorize(Roles = "Admin")]
+    [HttpPost("Create"), Authorize(Roles = "Admin")]
     public async Task<ActionResult> CreateProduct(ProductDto productDto)
     {
         Product createdProduct = null;

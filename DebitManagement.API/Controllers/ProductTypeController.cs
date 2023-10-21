@@ -30,7 +30,7 @@ public class ProductTypeController : ControllerBase
         _productTypeService = new ProductTypeService(configuration, productTypeRepository, mapper);
     }
 
-    [HttpGet]
+    [HttpGet("GetProductTypes")]
     public async Task<ActionResult> GetProductTypes()
     {
         IReadOnlyList<ProductType> list;

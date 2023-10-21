@@ -1,10 +1,10 @@
 using System.Net;
 using DebitManagement.API.Dto;
 using DebitManagement.Base;
+using DebitManagement.Base.Helpers;
 using DebitManagement.Core.Entities;
 using DebitManagement.Core.Interfaces;
 using DebitManagement.Service.Auth;
-using DebitManagement.Service.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,7 +63,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("RegisterAdmin")]
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> RegisterAdmin([FromBody] UserDto request)
     {
         try

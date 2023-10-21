@@ -33,6 +33,16 @@ builder.Services.AddMvc();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var debitContext = scope.ServiceProvider.GetRequiredService<DebitContext>();
+
+    if (debitContext.Database.GetPendingMigrations().Any())
+        debitContext.Database.Migrate();
+
+    debitContext.Seed();
+}
+
 app.UseCors("Policy");
 
 if (app.Environment.IsDevelopment())

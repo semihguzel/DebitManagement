@@ -1,0 +1,19 @@
+﻿version: '3.7'
+
+services:
+  postgres:
+    container_name: 'postgres'
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 1332
+  debitmanagement.api:
+    container_name: debitmanagementapi 
+    image: rakiel12/debitmanagementapi
+    build: ./DebitManagement.API
+    ports:
+     - "8080:80"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=DebitManagement;User Id=postgres;Password=1332
+    depends_on:
+      - postgres
+  

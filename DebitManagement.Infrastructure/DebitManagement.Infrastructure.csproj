@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DebitManagement.Base\DebitManagement.Base.csproj" />
       <ProjectReference Include="..\DebitManagement.Core\DebitManagement.Core.csproj" />
     </ItemGroup>
 

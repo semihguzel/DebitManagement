@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,6 +28,12 @@
       <ProjectReference Include="..\DebitManagement.Base\DebitManagement.Base.csproj" />
       <ProjectReference Include="..\DebitManagement.Infrastructure\DebitManagement.Infrastructure.csproj" />
       <ProjectReference Include="..\DebitManagement.Service\DebitManagement.Service.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

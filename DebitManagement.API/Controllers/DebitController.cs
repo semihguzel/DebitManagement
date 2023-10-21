@@ -43,7 +43,7 @@ public class DebitController : ControllerBase
         _productService = new ProductService(productRepository, productTypeRepository, mapper);
     }
 
-    [HttpGet]
+    [HttpGet("GetUserDebits")]
     [Authorize(Roles = "User")]
     public async Task<ActionResult> GetUserDebits(string username)
     {

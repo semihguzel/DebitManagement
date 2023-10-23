@@ -4,6 +4,8 @@ services:
   postgres:
     container_name: 'postgres'
     image: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: 1332
   debitmanagement.api:
@@ -14,6 +16,8 @@ services:
      - "8080:80"
     environment:
       - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=DebitManagement;User Id=postgres;Password=1332
+      - AppSettings__JwtKey=SECRET234_TOKEN432
+      - ClientSettings__Url=http://localhost:3000
     depends_on:
       - postgres
   

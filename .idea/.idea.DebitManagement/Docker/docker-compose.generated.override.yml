@@ -1,0 +1,24 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.7"
+services:
+  debitmanagement.api:
+    build:
+      context: "C:\\Users\\semih\\RiderProjects\\DebitManagement"
+      dockerfile: "DebitManagement.API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net6.0/DebitManagement.API.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      NUGET_PACKAGES: "C:\\Users\\semih\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\semih\\.nuget\\packages"
+    image: "rakiel12/debitmanagementapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\semih\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "C:\\Users\\semih\\RiderProjects\\DebitManagement\\DebitManagement.API:/app:rw"
+    - "C:\\Users\\semih\\RiderProjects\\DebitManagement:/src:rw"
+    working_dir: "/app"

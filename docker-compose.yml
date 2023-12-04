@@ -8,16 +8,25 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: 1332
+    networks: 
+      - debitmanagement
   debitmanagement.api:
     container_name: debitmanagementapi 
     image: rakiel12/debitmanagementapi
     build: ./DebitManagement.API
     ports:
      - "8080:80"
+     - "443"
     environment:
       - ConnectionStrings__DefaultConnection=Server=postgres;Port=5432;Database=DebitManagement;User Id=postgres;Password=1332
       - AppSettings__JwtKey=SECRET234_TOKEN432
       - ClientSettings__Url=http://localhost:3000
     depends_on:
       - postgres
-  
+    networks:
+      - debitmanagement
+
+networks:
+  debitmanagement:
+    driver: bridge
+    name: debit_management_network
